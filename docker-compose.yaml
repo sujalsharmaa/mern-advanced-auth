@@ -1,0 +1,91 @@
+version: '3'
+
+services:
+  auth-service:
+    build: ./auth-service
+    container_name: auth-service
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/authdb
+      - REDIS_HOST=redis
+     # - MONGO_URI=mongodb+srv://sujalsharma151:LGlw6zPfACVYI6Eg@cluster0.n15ev.mongodb.net/
+      - PORT=5000
+      - SALT=10
+      - JWT_SECRET='5123abc'
+      - NODE_ENV=production
+      - MY_EMAIL="techsharma53@gmail.com"
+      - MY_PASSWORD="splyydciyeqcoqdb"
+      - CLIENT_URL=http://localhost:5173
+    #  - REDIS_HOST='54.80.31.173'  #change needed redis
+      - REDIS_PORT=6379
+    depends_on:
+      - mongo
+      - redis
+    networks:
+      - backend-network
+
+  todos-service:
+    build: ./todos-service
+    container_name: todos-service
+    ports:
+      - "5001:5001"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/authdb
+      - REDIS_HOST=redis       
+      - REDIS_PORT=6379
+      - PORT=5001
+      - JWT_SECRET=5123abc
+    depends_on:
+      - mongo
+      - redis
+    networks:
+      - backend-network
+
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - "5003:5003"
+    environment:
+      - AUTH_SERVICE_URL=http://auth-service:5000
+      - TODOS_SERVICE_URL=http://todos-service:5001
+    depends_on:
+      - auth-service
+      - todos-service
+    networks:
+      - backend-network
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "5173:5173"
+    networks:
+      - frontend-network
+      - backend-network
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - backend-network
+
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - backend-network
+
+networks:
+  backend-network:
+  frontend-network:
+
+volumes:
+  mongo-data:

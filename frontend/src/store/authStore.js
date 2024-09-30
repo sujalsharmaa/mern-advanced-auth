@@ -1,17 +1,25 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const API_URL = import.meta.env.MODE === "development" ? "http://localhost:5000/api/auth" : "/api/auth";
+const API_URL = import.meta.env.MODE === "development" ? "http://localhost:5003/api/auth/api/auth" : "/api/auth";
+const TODO_API_URL = import.meta.env.MODE === "development" ? "http://localhost:5003/todos/todos" : "/api/todos";
 
 axios.defaults.withCredentials = true;
 
 export const useAuthStore = create((set) => ({
+	// Authentication state and actions
 	user: null,
 	isAuthenticated: false,
 	error: null,
 	isLoading: false,
 	isCheckingAuth: true,
 	message: null,
+	token: null,
+
+	// Todos state
+	todos: [],
+	todoError: null,
+	todoLoading: false,
 
 	signup: async (email, password, name) => {
 		set({ isLoading: true, error: null });
@@ -23,6 +31,7 @@ export const useAuthStore = create((set) => ({
 			throw error;
 		}
 	},
+
 	login: async (email, password) => {
 		set({ isLoading: true, error: null });
 		try {
@@ -30,6 +39,7 @@ export const useAuthStore = create((set) => ({
 			set({
 				isAuthenticated: true,
 				user: response.data.user,
+				token: response.data.token, // Assuming token comes from the response
 				error: null,
 				isLoading: false,
 			});
@@ -49,14 +59,56 @@ export const useAuthStore = create((set) => ({
 			throw error;
 		}
 	},
-	verifyEmail: async (code) => {
-		set({ isLoading: true, error: null });
+
+	// Todos Actions
+	fetchTodos: async () => {
+		set({ todoLoading: true, todoError: null });
 		try {
-			const response = await axios.post(`${API_URL}/verify-email`, { code });
-			set({ user: response.data.user, isAuthenticated: true, isLoading: false });
-			return response.data;
+			const response = await axios.get(TODO_API_URL);
+			set({ todos: response.data, todoLoading: false });
 		} catch (error) {
-			set({ error: error.response.data.message || "Error verifying email", isLoading: false });
+			set({ todoError: "Failed to load todos", todoLoading: false });
+		}
+	},
+
+	addTodo: async (task) => {
+		set({ todoLoading: true, todoError: null });
+		try {
+			const response = await axios.post(TODO_API_URL, { title: task });
+			console.log("todo response=>",response.data.newTodo)
+			set((state) => ({ todos: [...state.todos, response.data.newTodo], todoLoading: false }));
+		} catch (error) {
+			set({ todoError: "Failed to add todo", todoLoading: false });
+			throw error;
+		}
+	},
+
+	toggleComplete: async (id) => {
+		set({ todoLoading: true, todoError: null });
+		try {
+			await axios.put(`${TODO_API_URL}/${id}`);
+			set((state) => ({
+				todos: state.todos.map((todo) =>
+					todo._id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo
+				),
+				todoLoading: false,
+			}));
+		} catch (error) {
+			set({ todoError: "Failed to toggle todo", todoLoading: false });
+			throw error;
+		}
+	},
+
+	deleteTodo: async (id) => {
+		set({ todoLoading: true, todoError: null });
+		try {
+			await axios.delete(`${TODO_API_URL}/${id}`);
+			set((state) => ({
+				todos: state.todos.filter((todo) => todo._id !== id),
+				todoLoading: false,
+			}));
+		} catch (error) {
+			set({ todoError: "Failed to delete todo", todoLoading: false });
 			throw error;
 		}
 	},

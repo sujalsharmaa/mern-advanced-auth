@@ -93,3 +93,120 @@ export const PASSWORD_RESET_REQUEST_TEMPLATE = `
 </body>
 </html>
 `;
+
+export const WELCOME_EMAIL_TEMPLATE = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Our Community</title>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f4f4f7;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .email-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    .header {
+      background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+      padding: 40px;
+      text-align: center;
+    }
+    .header h1 {
+      color: #ffffff;
+      font-size: 28px;
+      margin: 0;
+      font-weight: bold;
+    }
+    .header p {
+      color: #ffffff;
+      font-size: 18px;
+      margin: 0;
+      padding-top: 10px;
+    }
+    .content {
+      padding: 40px;
+      color: #333333;
+      text-align: center;
+    }
+    .content h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #6a11cb;
+    }
+    .content p {
+      font-size: 16px;
+      line-height: 1.6;
+      margin: 0 0 20px;
+    }
+    .content .cta-button {
+      display: inline-block;
+      background-color: #6a11cb;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 15px 30px 15px 30px;
+      font-size: 16px;
+      border-radius: 5px;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+    }
+    .content .cta-button:hover {
+      background-color: #2575fc;
+    }
+    .footer {
+      background-color: #f4f4f7;
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+      color: #888888;
+    }
+    .footer p {
+      margin: 0;
+    }
+    .footer a {
+      color: #2575fc;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-container">
+    <!-- Header Section -->
+    <div class="header">
+      <h1>Welcome to Our Community!</h1>
+      <p>We're excited to have you on board.</p>
+    </div>
+
+    <!-- Content Section -->
+    <div class="content">
+      <h2>Hello {name}, and Welcome!</h2>
+      <p>Thank you for joining us! We're thrilled to have you as part of our growing community. Get ready to explore, learn, and connect with amazing people.</p>
+      <p>As a member, you now have access to exclusive features, updates, and much more. We can't wait to see what you achieve!</p>
+
+      <!-- CTA Button -->
+      <a href="#" class="cta-button">Get Started</a>
+
+      <p>If you have any questions, feel free to reply to this email or reach out to our support team at any time. We're here to help!</p>
+      <p>Best regards,<br><strong>Your Company Team</strong></p>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+      <p>Need help? Visit our <a href="#">Help Center</a> or <a href="mailto:support@yourcompany.com">contact support</a>.</p>
+      <p>&copy; 2024 Your Company. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>
+`
