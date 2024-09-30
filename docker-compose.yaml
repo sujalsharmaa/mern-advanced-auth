@@ -2,14 +2,13 @@ version: '3'
 
 services:
   auth-service:
-    build: ./auth-service
+    build: ./backend
     container_name: auth-service
     ports:
       - "5000:5000"
     environment:
       - MONGO_URI=mongodb://mongo:27017/authdb
       - REDIS_HOST=redis
-     # - MONGO_URI=mongodb+srv://sujalsharma151:LGlw6zPfACVYI6Eg@cluster0.n15ev.mongodb.net/
       - PORT=5000
       - SALT=10
       - JWT_SECRET='5123abc'
@@ -17,7 +16,6 @@ services:
       - MY_EMAIL="techsharma53@gmail.com"
       - MY_PASSWORD="splyydciyeqcoqdb"
       - CLIENT_URL=http://localhost:5173
-    #  - REDIS_HOST='54.80.31.173'  #change needed redis
       - REDIS_PORT=6379
     depends_on:
       - mongo
@@ -26,7 +24,7 @@ services:
       - backend-network
 
   todos-service:
-    build: ./todos-service
+    build: ./todo-service
     container_name: todos-service
     ports:
       - "5001:5001"
