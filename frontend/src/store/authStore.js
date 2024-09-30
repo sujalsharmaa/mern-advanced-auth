@@ -1,8 +1,12 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const API_URL = import.meta.env.MODE === "development" ? "http://localhost:5003/api/auth/api/auth" : "/api/auth";
-const TODO_API_URL = import.meta.env.MODE === "development" ? "http://localhost:5003/todos/todos" : "/api/todos";
+const API_GATEWAY_URL = import.meta.env.VITE_API_GATEWAY_URL || "http://localhost:5003";
+const API_AUTH_URL = import.meta.env.VITE_API_AUTH_URL || "/api/auth";
+const API_TODOS_URL = import.meta.env.VITE_API_TODOS_URL || "/api/todos";
+
+const API_URL = `${API_GATEWAY_URL}${API_AUTH_URL}`;
+const TODO_API_URL = `${API_GATEWAY_URL}${API_TODOS_URL}`;
 
 axios.defaults.withCredentials = true;
 

@@ -8,14 +8,14 @@ const bodyParser = require('body-parser');
 
 
 
-
+const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
 const app = express();
 
 // Connect to MongoDB
 app.use(cors({
-    origin: 'http://localhost:5173', // Only allow requests from this origin
-    methods: 'GET,POST,PUT,DELETE',   // Define allowed HTTP methods
-    credentials: true                 // If you are using credentials (cookies, etc.)
+    origin: CLIENT_URL, // Only allow requests from this origin
+    methods: 'GET,POST,PUT,DELETE', // Define allowed HTTP methods
+    credentials: true // If you are using credentials (cookies, etc.)
 }));
 
 
