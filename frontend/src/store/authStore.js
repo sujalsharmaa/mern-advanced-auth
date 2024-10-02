@@ -1,12 +1,12 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const API_GATEWAY_URL = import.meta.env.VITE_API_GATEWAY_URL || "http://localhost:5003";
+const API_GATEWAY_URL =  "https://localhost:5003" || import.meta.env.VITE_API_GATEWAY_URL 
 const API_AUTH_URL = import.meta.env.VITE_API_AUTH_URL || "/api/auth";
 const API_TODOS_URL = import.meta.env.VITE_API_TODOS_URL || "/api/todos";
 
-const API_URL = `${API_GATEWAY_URL}${API_AUTH_URL}`;
-const TODO_API_URL = `${API_GATEWAY_URL}${API_TODOS_URL}`;
+const API_URL = "https://auth-service:5000/api/auth" ||`${API_GATEWAY_URL}${API_AUTH_URL}`;
+const TODO_API_URL = "https://todos-service:5001/todos/"||`${API_GATEWAY_URL}${API_TODOS_URL}`;
 
 axios.defaults.withCredentials = true;
 
@@ -28,7 +28,7 @@ export const useAuthStore = create((set) => ({
 	signup: async (email, password, name) => {
 		set({ isLoading: true, error: null });
 		try {
-			const response = await axios.post(`${API_URL}/signup`, { email, password, name });
+			const response = await axios.post(`${API_AUTH_URL}/api/auth/signup`, { email, password, name });
 			set({ user: response.data.user, isAuthenticated: true, isLoading: false });
 		} catch (error) {
 			set({ error: error.response.data.message || "Error signing up", isLoading: false });
@@ -39,7 +39,7 @@ export const useAuthStore = create((set) => ({
 	login: async (email, password) => {
 		set({ isLoading: true, error: null });
 		try {
-			const response = await axios.post(`${API_URL}/login`, { email, password });
+			const response = await axios.post(`${API_AUTH_URL}/api/auth/login`, { email, password });
 			set({
 				isAuthenticated: true,
 				user: response.data.user,
@@ -56,7 +56,7 @@ export const useAuthStore = create((set) => ({
 	logout: async () => {
 		set({ isLoading: true, error: null });
 		try {
-			await axios.post(`${API_URL}/logout`);
+			await axios.post(`${API_AUTH_URL}/api/auth/logout`);
 			set({ user: null, isAuthenticated: false, error: null, isLoading: false });
 		} catch (error) {
 			set({ error: "Error logging out", isLoading: false });
@@ -68,7 +68,7 @@ export const useAuthStore = create((set) => ({
 	fetchTodos: async () => {
 		set({ todoLoading: true, todoError: null });
 		try {
-			const response = await axios.get(TODO_API_URL);
+			const response = await axios.get(`${API_TODOS_URL}/todos/`);
 			set({ todos: response.data, todoLoading: false });
 		} catch (error) {
 			set({ todoError: "Failed to load todos", todoLoading: false });
@@ -78,7 +78,7 @@ export const useAuthStore = create((set) => ({
 	addTodo: async (task) => {
 		set({ todoLoading: true, todoError: null });
 		try {
-			const response = await axios.post(TODO_API_URL, { title: task });
+			const response = await axios.post(`${API_TODOS_URL}/todos/`, { title: task });
 			console.log("todo response=>",response.data.newTodo)
 			set((state) => ({ todos: [...state.todos, response.data.newTodo], todoLoading: false }));
 		} catch (error) {
@@ -90,7 +90,7 @@ export const useAuthStore = create((set) => ({
 	toggleComplete: async (id) => {
 		set({ todoLoading: true, todoError: null });
 		try {
-			await axios.put(`${TODO_API_URL}/${id}`);
+			await axios.put(`${API_TODOS_URL}/todos/${id}`);
 			set((state) => ({
 				todos: state.todos.map((todo) =>
 					todo._id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo
@@ -106,7 +106,7 @@ export const useAuthStore = create((set) => ({
 	deleteTodo: async (id) => {
 		set({ todoLoading: true, todoError: null });
 		try {
-			await axios.delete(`${TODO_API_URL}/${id}`);
+			await axios.delete(`${API_TODOS_URL}/todos/${id}`);
 			set((state) => ({
 				todos: state.todos.filter((todo) => todo._id !== id),
 				todoLoading: false,
@@ -128,7 +128,7 @@ export const useAuthStore = create((set) => ({
 	forgotPassword: async (email) => {
 		set({ isLoading: true, error: null });
 		try {
-			const response = await axios.post(`${API_URL}/forgot-password`, { email });
+			const response = await axios.post(`${API_AUTH_URL}/api/auth/forgot-password`, { email });
 			set({ message: response.data.message, isLoading: false });
 		} catch (error) {
 			set({
@@ -141,7 +141,7 @@ export const useAuthStore = create((set) => ({
 	resetPassword: async (token, password) => {
 		set({ isLoading: true, error: null });
 		try {
-			const response = await axios.post(`${API_URL}/reset-password/${token}`, { password });
+			const response = await axios.post(`${API_AUTH_URL}/api/auth/reset-password/${token}`, { password });
 			set({ message: response.data.message, isLoading: false });
 		} catch (error) {
 			set({

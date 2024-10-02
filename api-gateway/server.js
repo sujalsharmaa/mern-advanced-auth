@@ -17,6 +17,10 @@ app.use(express.json({ limit: '50mb' }));
 const AUTH_SERVICE_URL = process.env.AUTH_SERVICE_URL || 'http://localhost:5000';
 const TODO_SERVICE_URL = process.env.TODOS_SERVICE_URL || 'http://localhost:5001';// Replace with your todo service URL
 
+app.get('/',(req,res)=>{
+    res.send('it works')
+})
+
 app.use('/api/auth', proxy(AUTH_SERVICE_URL, {
     proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
         return proxyReqOpts;

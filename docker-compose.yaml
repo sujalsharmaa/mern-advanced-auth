@@ -1,5 +1,5 @@
 version: '3'
-
+#updated it works
 services:
   auth-service:
     build: ./backend
@@ -12,9 +12,10 @@ services:
       - PORT=5000
       - SALT=10
       - JWT_SECRET='5123abc'
-      - 
       - CLIENT_URL=http://frontend:5173 # Update to the frontend service name
       - REDIS_PORT=6379
+      - MY_EMAIL=techsharma53@gmail.com
+      - MY_PASSWORD=onvguabxigdeszyb
     depends_on:
       - mongo
       - redis
@@ -47,7 +48,7 @@ services:
     environment:
       - AUTH_SERVICE_URL=http://auth-service:5000
       - TODOS_SERVICE_URL=http://todos-service:5001
-      - CLIENT_URL=http://frontend:5173 # Update to the frontend service name
+      - CLIENT_URL=https://frontend:5173 # Update to the frontend service name
     depends_on:
       - auth-service
       - todos-service
@@ -60,9 +61,9 @@ services:
     ports:
       - "5173:5173"
     environment:
-      - VITE_API_GATEWAY_URL=http://api-gateway:5003
-      - VITE_API_AUTH_URL=/api/auth
-      - VITE_API_TODOS_URL=/api/todos
+      - VITE_API_GATEWAY_URL=https://api-gateway:5003
+      - VITE_API_AUTH_URL=https://auth-service:5000
+      - VITE_API_TODOS_URL=https://todos-service:5001
     networks:
       - frontend-network
       - backend-network
