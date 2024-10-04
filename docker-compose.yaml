@@ -14,7 +14,7 @@ services:
       - PORT=5000
       - SALT=10
       - JWT_SECRET='5123abc'
-      - CLIENT_URL=http://${ip}:5173 # Update to the frontend service name
+      - CLIENT_URL=http://54.242.122.233:5173 # Update to the frontend service name
       - REDIS_PORT=6379
       - MY_EMAIL=techsharma53@gmail.com
       - MY_PASSWORD=onvguabxigdeszyb
@@ -34,8 +34,8 @@ services:
       - REDIS_HOST=redis       
       - REDIS_PORT=6379
       - PORT=5001
-      - JWT_SECRET=5123abc
-      - CLIENT_URL=http://${ip}:5173 # Update to the frontend service name
+      - JWT_SECRET='5123abc'
+      - CLIENT_URL=http://54.242.122.233:5173 # Update to the frontend service name
     depends_on:
       - mongo
       - redis
@@ -48,9 +48,9 @@ services:
     ports:
       - "5003:5003"
     environment:
-      - AUTH_SERVICE_URL=http://${ip}:5000
-      - TODOS_SERVICE_URL=http://${ip}:5001
-      - CLIENT_URL=http://${ip}:5173 # Update to the frontend service name
+      - AUTH_SERVICE_URL=http://54.242.122.233:5000
+      - TODOS_SERVICE_URL=http://54.242.122.233:5001
+      - CLIENT_URL=http://54.242.122.233:5173 # Update to the frontend service name
     depends_on:
       - auth-service
       - todos-service
@@ -63,9 +63,9 @@ services:
     ports:
       - "5173:5173"
     environment:
-      - VITE_API_GATEWAY_URL=http://${ip}:5003
-      - VITE_API_AUTH_URL=http://${ip}:5000
-      - VITE_API_TODOS_URL=http://${ip}:5001
+      - VITE_API_GATEWAY_URL=http://54.242.122.233:5003
+      - VITE_API_AUTH_URL=http://54.242.122.233:5000
+      - VITE_API_TODOS_URL=http://54.242.122.233:5001
     networks:
       - frontend-network
       - backend-network
