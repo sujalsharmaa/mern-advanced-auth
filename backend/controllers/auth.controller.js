@@ -87,9 +87,18 @@ export const verifyEmail = async (req, res) => {
 		user.verificationTokenExpiresAt = undefined;
 		await user.save();
 
+		// Update the cached user in Redis
+		await Redis.set(`user:${user.email}`, JSON.stringify(user), 'EX', 24 * 60 * 60);
+
+		// Generate token and set cookie
+		generateTokenAndSetCookie(res, user._id);
+
 		// Send welcome email
 		await sendWelcomeEmail(user.email, user.name);
 
+		
+
+		// Update last login time and save the user data
 		user.lastLogin = new Date();
 		await user.save(); // Save the existing Mongoose document
 
@@ -111,7 +120,6 @@ export const verifyEmail = async (req, res) => {
 		console.log("Error in verify Email =>", error);
 	}
 };
-
 
 
 
