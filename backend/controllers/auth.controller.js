@@ -87,15 +87,19 @@ export const verifyEmail = async (req, res) => {
 		user.verificationTokenExpiresAt = undefined;
 		await user.save();
 
-		// Update the cached user in Redis
-		await Redis.set(`user:${user.email}`, JSON.stringify(user), 'EX', 24 * 60 * 60);
-
 		// Send welcome email
 		await sendWelcomeEmail(user.email, user.name);
 
+		user.lastLogin = new Date();
+		await user.save(); // Save the existing Mongoose document
+
+		// Update cached user data in Redis with the new lastLogin
+		await setAsync(user.email, JSON.stringify(user), 'EX', 3600);
+
+		// Respond with user data, excluding the password
 		res.status(200).json({
 			success: true,
-			message: "Email verified successfully",
+			message: "Logged in successfully",
 			user: {
 				...user._doc,
 				password: undefined,
