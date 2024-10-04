@@ -1,6 +1,5 @@
 version: '3'
 #updated it works
-ARG ip=x
 
 services:
   auth-service:
