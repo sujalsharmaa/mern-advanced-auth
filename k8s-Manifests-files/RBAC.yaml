@@ -1,0 +1,63 @@
+# Service Account for Auth Service
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: auth-service-account
+  namespace: default
+
+# Cluster Role
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: auth-cluster-role
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps", "secrets"]
+    verbs: ["get", "list", "watch", "create", "delete", "update"]
+
+# Cluster Role Binding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: auth-role-binding
+subjects:
+  - kind: ServiceAccount
+    name: auth-service-account
+    namespace: default
+roleRef:
+  kind: ClusterRole
+  name: auth-cluster-role
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+# Service Account for Todo Service
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: todos-service-account
+  namespace: default
+
+# Cluster Role
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: todos-cluster-role
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps"]
+    verbs: ["get", "list", "watch", "create", "delete", "update"]
+
+# Cluster Role Binding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: todos-role-binding
+subjects:
+  - kind: ServiceAccount
+    name: todos-service-account
+    namespace: default
+roleRef:
+  kind: ClusterRole
+  name: todos-cluster-role
+  apiGroup: rbac.authorization.k8s.io

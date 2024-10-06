@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todos-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todos-service
+  template:
+    metadata:
+      labels:
+        app: todos-service
+    spec:
+      containers:
+        - name: todos-service
+          image: sujalsharma/todo-backend-app
+          ports:
+            - containerPort: 5001
+          envFrom:
+            - configMapRef:
+                name: auth-service-config
+            - secretRef:
+                name: auth-service-secrets
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todos-service
+spec:
+  selector:
+    app: todos-service
+  ports:
+    - protocol: TCP
+      port: 5001
+      targetPort: 5001
+  type: ClusterIP
