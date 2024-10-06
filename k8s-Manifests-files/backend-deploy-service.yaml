@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: auth
-        image: sujalsharma/backend-auth-app
+        image: sujalsharma/backend-auth-app:v1
         ports:
         - containerPort: 5000
         env:

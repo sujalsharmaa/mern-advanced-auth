@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: todos-service
-          image: sujalsharma/todo-backend-app
+          image: sujalsharma/todo-backend-app:v1
           ports:
             - containerPort: 5001
           envFrom:
