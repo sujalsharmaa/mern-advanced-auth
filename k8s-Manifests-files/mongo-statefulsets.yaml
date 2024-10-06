@@ -4,7 +4,7 @@ metadata:
   name: mongo-pv
 spec:
   capacity:
-    storage: 1Gi
+    storage: 0.1Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
@@ -19,7 +19,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 0.1Gi
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -51,7 +51,7 @@ spec:
         accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
-            storage: 1Gi
+            storage: 0.1Gi
         storageClassName: standard      
 ---
 apiVersion: v1
