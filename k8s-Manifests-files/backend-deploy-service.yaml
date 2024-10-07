@@ -19,9 +19,9 @@ spec:
         - containerPort: 5000
         env:
         - name: MONGO_URI
-          value: mongo:27017/auth-db
+          value: "mongodb+srv://sujalsharma151:LGlw6zPfACVYI6Eg@cluster0.n15ev.mongodb.net/"
         - name: REDIS_HOST
-          value: 'redis'
+          value: 'http://redis'
         - name: REDIS_PORT
           value: "6379"
         - name: SALT
