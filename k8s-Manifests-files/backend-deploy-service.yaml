@@ -21,7 +21,7 @@ spec:
         - name: MONGO_URI
           value: "mongodb+srv://sujalsharma151:LGlw6zPfACVYI6Eg@cluster0.n15ev.mongodb.net/"
         - name: REDIS_HOST
-          value: 'http://redis'
+          value: 'redis'
         - name: REDIS_PORT
           value: "6379"
         - name: SALT
