@@ -2,6 +2,10 @@ apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
   name: gateway
+<<<<<<< HEAD
+=======
+
+>>>>>>> f19c2f4 (k8s updated)
 spec:
   selector:
     istio: ingressgateway # use Istio default ingress gateway

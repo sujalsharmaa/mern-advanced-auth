@@ -24,6 +24,8 @@ spec:
               value: "http://auth-service:5000"
             - name: VITE_API_TODOS_URL
               value: "http://todos-service:5001"
+            - name: JWT_SECRET
+              value: '5123abc'  
 ---
 apiVersion: v1
 kind: Service

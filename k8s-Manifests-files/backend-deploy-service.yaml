@@ -19,14 +19,26 @@ spec:
         - containerPort: 5000
         env:
         - name: MONGO_URI
-          value: mongodb://mongodb-svc:27017/auth-db
-        - name: REDIS_URI
-          value: redis://redis-svc:6379
+          value: mongo:27017/auth-db
+        - name: REDIS_HOST
+          value: 'redis'
+        - name: REDIS_PORT
+          value: "6379"
+        - name: SALT
+          value: '10'
+        - name: PORT
+          value: 5000     
+        - name: JWT_SECRET   
+          value: '5123abc'
+        - name: MY_EMAIL   
+          value: 'techsharma53@gmail.com'
+        - name: MY_PASSWORD
+          value: 'onvguabxigdeszyb'  
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-svc
+  name: auth-service
 spec:
   type: LoadBalancer
   ports:
