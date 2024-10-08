@@ -46,7 +46,7 @@ spec:
           - name: SALT
             value: "10"
           - name: PORT
-            value: 5000     
+            value: "5000"     
           - name: JWT_SECRET   
             value: "5123abc"
           - name: MY_EMAIL   
