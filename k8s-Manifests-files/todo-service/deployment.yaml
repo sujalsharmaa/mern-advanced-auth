@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: todo-service
-  namespace: three-tier
   labels:
     role: todo-service
     env: demo
@@ -26,30 +25,18 @@ spec:
         image: sujalsharma/backend-auth-app:v1
         imagePullPolicy: Always
         env:
-          - name: MONGO_CONN_STR
-            value: mongodb://mongodb-svc:27017/todo?directConnection=true
-          - name: MONGO_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: mongo-sec
-                key: username
-          - name: MONGO_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mongo-sec
-                key: password
           - name: REDIS_HOST
-            value: 'redis'
+            value: "35.247.94.79"
           - name: MONGO_URI
             value: "mongodb+srv://sujalsharma151:LGlw6zPfACVYI6Eg@cluster0.n15ev.mongodb.net/"
           - name: REDIS_PORT
             value: "6379"
           - name: SALT
-            value: '10'
+            value: "10"
           - name: PORT
-            value: 5000     
+            value: "5000"     
           - name: JWT_SECRET   
-            value: '5123abc'
+            value: "5123abc"
           - name: MY_EMAIL   
             value: 'techsharma53@gmail.com'
           - name: MY_PASSWORD
