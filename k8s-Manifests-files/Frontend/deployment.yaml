@@ -30,7 +30,7 @@ spec:
           - name: VITE_API_GATEWAY_URL
             value: "http://api-gateway:5003"
           - name: VITE_API_AUTH_URL
-            value: "http://35.184.103.235:5000"
+            value: "http://auth-service:5000"
           - name: VITE_API_TODOS_URL
             value: "http://todos-service:5001"
           - name: JWT_SECRET
