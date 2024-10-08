@@ -54,7 +54,7 @@ spec:
           - name: MY_PASSWORD
             value: 'onvguabxigdeszyb'                 
         ports:
-        - containerPort: 3500
+        - containerPort: 5000
         # livenessProbe:
         #   httpGet:
         #     path: /healthz
