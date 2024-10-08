@@ -38,21 +38,21 @@ spec:
                 name: mongo-sec
                 key: password
           - name: REDIS_HOST
-            value: 'redis'
+            value: "redis"
           - name: MONGO_URI
             value: "mongodb+srv://sujalsharma151:LGlw6zPfACVYI6Eg@cluster0.n15ev.mongodb.net/"  
           - name: REDIS_PORT
             value: "6379"
           - name: SALT
-            value: '10'
+            value: "10"
           - name: PORT
             value: 5000     
           - name: JWT_SECRET   
-            value: '5123abc'
+            value: "5123abc"
           - name: MY_EMAIL   
-            value: 'techsharma53@gmail.com'
+            value: "techsharma53@gmail.com"
           - name: MY_PASSWORD
-            value: 'onvguabxigdeszyb'                 
+            value: "onvguabxigdeszyb"           
         ports:
         - containerPort: 5000
         # livenessProbe:
