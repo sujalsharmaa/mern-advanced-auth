@@ -40,6 +40,8 @@ spec:
                 key: password
           - name: REDIS_HOST
             value: 'redis'
+          - name: MONGO_URI
+            value: "mongodb+srv://sujalsharma151:LGlw6zPfACVYI6Eg@cluster0.n15ev.mongodb.net/"  
           - name: REDIS_PORT
             value: "6379"
           - name: SALT
