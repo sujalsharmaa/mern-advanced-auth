@@ -25,18 +25,6 @@ spec:
         image: sujalsharma/backend-auth-app:v1
         imagePullPolicy: Always
         env:
-          - name: MONGO_CONN_STR
-            value: "mongodb://mongodb-svc:27017/todo?directConnection=true"
-          - name: MONGO_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: mongo-sec
-                key: username
-          - name: MONGO_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mongo-sec
-                key: password
           - name: REDIS_HOST
             value: "redis"
           - name: MONGO_URI
