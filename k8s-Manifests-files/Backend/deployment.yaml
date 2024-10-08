@@ -26,7 +26,7 @@ spec:
         imagePullPolicy: Always
         env:
           - name: REDIS_HOST
-            value: "redis"
+            value: "35.247.94.79"
           - name: MONGO_URI
             value: "mongodb+srv://sujalsharma151:LGlw6zPfACVYI6Eg@cluster0.n15ev.mongodb.net/"  
           - name: REDIS_PORT
